@@ -1,0 +1,4 @@
+<div class="phx-hero">
+  <h2><%= @grid.name %></h2>
+  <p><%= @grid.description %></p>
+</div>
