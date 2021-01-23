@@ -17,7 +17,18 @@ defmodule HexPackagesWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
-    resources "/grids", GridController, only: [:index, :show]
+    resources "/grids", GridController, only: [:show]
+  end
+
+  scope "/admin", HexPackagesWeb.Admin, as: :admin do
+    pipe_through :browser
+
+    resources "/packages", PackageController
+
+    resources "/grids", GridController do
+      get "/add_package", GridController, :add_package, as: :add_package
+      post "/add_package", GridController, :save_package, as: :add_package
+    end
   end
 
   # Other scopes may use custom stacks.

@@ -1,0 +1,44 @@
+<section id="torch-toolbar">
+  <div class="torch-container">
+    <%= link "Edit", to: Routes.admin_grid_path(@conn, :edit, @grid), class: "torch-button" %>
+    <%= link "Back", to: Routes.admin_grid_path(@conn, :index), class: "torch-button" %>
+  </div>
+</section>
+<section id="torch-header-and-content">
+  <div class="torch-container">
+    <div class="header">
+      <h3>Grid Details</h3>
+    </div>
+    <ul>
+      <li>
+        <div class="torch-show-label">Name:</div>
+        <div class="torch-show-data"><%= @grid.name %></div>
+      </li>
+      <li>
+        <div class="torch-show-label">Description:</div>
+        <div class="torch-show-data"><%= @grid.description %></div>
+      </li>
+      <li>
+        <div class="torch-show-label">Slug:</div>
+        <div class="torch-show-data"><%= @grid.slug %></div>
+      </li>
+      <li>
+        <div class="torch-show-label">Packages:</div>
+        <div class="torch-show-data">
+          <table>
+            <tbody>
+              <%= for package <- @grid.packages do %>
+                <tr>
+                  <td><%= package.name %></td>
+                </tr>
+              <% end %>
+              <tr>
+                <td><%= link "+ Add package", to: Routes.admin_grid_add_package_path(@conn, :add_package, @grid) %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </li>
+    </ul>
+  </div>
+</section>

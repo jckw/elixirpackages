@@ -1,14 +1,9 @@
 defmodule HexPackagesWeb.GridController do
   use HexPackagesWeb, :controller
-  alias HexPackages.Repo
-  alias HexPackages.Grid
+  alias HexPackages.{PackageGrids, Repo}
 
-  def index(conn, _params) do
-    render(conn, "index.html")
-  end
-
-  def show(conn, %{"id" => id}) do
-    grid = Repo.get(Grid, id)
+  def show(conn, %{"id" => slug}) do
+    grid = Repo.preload(PackageGrids.get_grid_by_slug!(slug), :packages)
     render(conn, "show.html", grid: grid)
   end
 end

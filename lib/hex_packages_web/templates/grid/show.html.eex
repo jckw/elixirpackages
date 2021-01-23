@@ -1,4 +1,66 @@
-<div class="phx-hero">
-  <h2><%= @grid.name %></h2>
-  <p><%= @grid.description %></p>
-</div>
+<h1><%= @grid.name %></h1>
+<div><%= @grid.description %></div>
+<table>
+  <thead>
+    <th>Package</th>
+    <%= for package <- @grid.packages do %>
+      <th><%= package.name %></th>
+    <% end %>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Description</td>
+      <%= for package <- @grid.packages do %>
+        <td><%= package.description %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>Hex</td>
+      <%= for package <- @grid.packages do %>
+        <td><a href="<%= package.hex_url %>"><%= package.hex_url %></a></td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>Last updated</td>
+      <%= for package <- @grid.packages do %>
+        <td><%= Timex.format!(package.last_released, "%b. %d, %Y", :strftime) %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>Latest version</td>
+      <%= for package <- @grid.packages do %>
+        <td><%= package.latest_version %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>Latest stable version</td>
+      <%= for package <- @grid.packages do %>
+        <td><%= package.latest_stable_version %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>Repo</td>
+      <%= for package <- @grid.packages do %>
+        <td><a href="<%= package.repo_url %>"><%= package.repo_provider %></a></td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>Stars</td>
+      <%= for package <- @grid.packages do %>
+        <td><%= package.stars_count %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>Repo forks</td>
+      <%= for package <- @grid.packages do %>
+        <td><%= package.forks_count %></td>
+      <% end %>
+    </tr>
+    <tr>
+      <td>Open issues</td>
+      <%= for package <- @grid.packages do %>
+        <td><%= package.issues_count %></td>
+      <% end %>
+    </tr>
+  </tbody>
+</table>
