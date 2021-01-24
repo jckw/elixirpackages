@@ -386,84 +386,6 @@ defmodule ElixirPackages.PackageGrids do
 
   alias ElixirPackages.PackageGrids.PackageInGrid
 
-  @pagination [page_size: 15]
-  @pagination_distance 5
-
-  @doc """
-  Paginate the list of package_in_grid using filtrex
-  filters.
-
-  ## Examples
-
-      iex> list_package_in_grid(%{})
-      %{package_in_grid: [%PackageInGrid{}], ...}
-  """
-  @spec paginate_package_in_grid(map) :: {:ok, map} | {:error, any}
-  def paginate_package_in_grid(params \\ %{}) do
-    params =
-      params
-      |> Map.put_new("sort_direction", "desc")
-      |> Map.put_new("sort_field", "inserted_at")
-
-    {:ok, sort_direction} = Map.fetch(params, "sort_direction")
-    {:ok, sort_field} = Map.fetch(params, "sort_field")
-
-    with {:ok, filter} <-
-           Filtrex.parse_params(filter_config(:package_in_grid), params["package_in_grid"] || %{}),
-         %Scrivener.Page{} = page <- do_paginate_package_in_grid(filter, params) do
-      {:ok,
-       %{
-         package_in_grid: page.entries,
-         page_number: page.page_number,
-         page_size: page.page_size,
-         total_pages: page.total_pages,
-         total_entries: page.total_entries,
-         distance: @pagination_distance,
-         sort_field: sort_field,
-         sort_direction: sort_direction
-       }}
-    else
-      {:error, error} -> {:error, error}
-      error -> {:error, error}
-    end
-  end
-
-  defp do_paginate_package_in_grid(filter, params) do
-    PackageInGrid
-    |> Filtrex.query(filter)
-    |> order_by(^sort(params))
-    |> paginate(Repo, params, @pagination)
-  end
-
-  @doc """
-  Returns the list of package_in_grid.
-
-  ## Examples
-
-      iex> list_package_in_grid()
-      [%PackageInGrid{}, ...]
-
-  """
-  def list_package_in_grid do
-    Repo.all(PackageInGrid)
-  end
-
-  @doc """
-  Gets a single package_in_grid.
-
-  Raises `Ecto.NoResultsError` if the Package in grid does not exist.
-
-  ## Examples
-
-      iex> get_package_in_grid!(123)
-      %PackageInGrid{}
-
-      iex> get_package_in_grid!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_package_in_grid!(id), do: Repo.get!(PackageInGrid, id)
-
   @doc """
   Creates a package_in_grid.
 
@@ -483,24 +405,6 @@ defmodule ElixirPackages.PackageGrids do
   end
 
   @doc """
-  Updates a package_in_grid.
-
-  ## Examples
-
-      iex> update_package_in_grid(package_in_grid, %{field: new_value})
-      {:ok, %PackageInGrid{}}
-
-      iex> update_package_in_grid(package_in_grid, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_package_in_grid(%PackageInGrid{} = package_in_grid, attrs) do
-    package_in_grid
-    |> PackageInGrid.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
   Deletes a PackageInGrid.
 
   ## Examples
@@ -513,11 +417,19 @@ defmodule ElixirPackages.PackageGrids do
 
   """
   def delete_package_in_grid(%PackageInGrid{} = package_in_grid) do
-    Repo.delete(package_in_grid)
+    Repo.delete_all(
+      from pg in "package_in_grid",
+        where:
+          pg.package_id == ^package_in_grid.package_id and pg.grid_id == ^package_in_grid.grid_id
+    )
+    |> case do
+      {1, nil} -> {:ok, package_in_grid}
+      _ -> {:error, change_package_in_grid(package_in_grid)}
+    end
   end
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking package_in_grid changes.
+  Returns an `%Ecto.Changeset{}` for tracking packge-in-grid changes.
 
   ## Examples
 
@@ -527,10 +439,5 @@ defmodule ElixirPackages.PackageGrids do
   """
   def change_package_in_grid(%PackageInGrid{} = package_in_grid, attrs \\ %{}) do
     PackageInGrid.changeset(package_in_grid, attrs)
-  end
-
-  defp filter_config(:package_in_grid) do
-    defconfig do
-    end
   end
 end

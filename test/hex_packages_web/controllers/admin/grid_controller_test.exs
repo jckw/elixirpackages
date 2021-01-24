@@ -2,9 +2,14 @@ defmodule ElixirPackagesWeb.Admin.GridControllerTest do
   use ElixirPackagesWeb.ConnCase
 
   alias ElixirPackages.PackageGrids
+  alias ElixirPackages.Repo
 
-  @create_attrs %{description: "some description", name: "some name"}
-  @update_attrs %{description: "some updated description", name: "some updated name"}
+  @create_attrs %{description: "some description", name: "some name", slug: "some-name"}
+  @update_attrs %{
+    description: "some updated description",
+    name: "some updated name",
+    slug: "some-updated-name"
+  }
   @invalid_attrs %{description: nil, name: nil}
 
   def fixture(:grid) do
@@ -57,6 +62,7 @@ defmodule ElixirPackagesWeb.Admin.GridControllerTest do
 
     test "redirects when data is valid", %{conn: conn, grid: grid} do
       conn = put conn, Routes.admin_grid_path(conn, :update, grid), grid: @update_attrs
+      grid = Repo.reload(grid)
       assert redirected_to(conn) == Routes.admin_grid_path(conn, :show, grid)
 
       conn = get(conn, Routes.admin_grid_path(conn, :show, grid))

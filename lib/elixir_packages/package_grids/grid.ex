@@ -19,5 +19,6 @@ defmodule ElixirPackages.PackageGrids.Grid do
     grid
     |> cast(attrs, [:name, :description, :slug])
     |> validate_required([:name, :description, :slug])
+    |> unique_constraint(:slug, name: :grids_slug_index)
   end
 end
