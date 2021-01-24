@@ -72,6 +72,21 @@ defmodule ElixirPackages.PackageGrids do
   end
 
   @doc """
+  Returns the list of grids in alphabetical order.
+
+  ## Examples
+
+      iex> list_grids_alphabetically()
+      [%Grid{}, ...]
+
+  """
+  def list_grids_alphabetically do
+    Grid
+    |> order_by(desc: :name)
+    |> Repo.all()
+  end
+
+  @doc """
   Gets a single grid.
 
   Raises `Ecto.NoResultsError` if the Grid does not exist.

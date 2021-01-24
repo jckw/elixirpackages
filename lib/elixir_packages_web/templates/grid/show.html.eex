@@ -1,6 +1,6 @@
-<h1><%= @grid.name %></h1>
-<div><%= @grid.description %></div>
-<table>
+<h1 class="text-3xl mb-2 font-extrabold"><%= @grid.name %></h1>
+<div class="mb-4"><%= @grid.description %></div>
+<table class="table">
   <thead>
     <th>Package</th>
     <%= for package <- @grid.packages do %>

@@ -1,31 +1,49 @@
 /* This file is for your main application css. */
-@import "./phoenix.css";
+@import "tailwindcss/base";
+@import "tailwindcss/components";
+@import "tailwindcss/utilities";
 
 /* Alerts and form errors */
 .alert {
-  padding: 15px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
-  border-radius: 4px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
 }
 .alert-info {
-  color: #31708f;
-  background-color: #d9edf7;
-  border-color: #bce8f1;
+    color: #31708f;
+    background-color: #d9edf7;
+    border-color: #bce8f1;
 }
 .alert-warning {
-  color: #8a6d3b;
-  background-color: #fcf8e3;
-  border-color: #faebcc;
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
 }
 .alert-danger {
-  color: #a94442;
-  background-color: #f2dede;
-  border-color: #ebccd1;
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
 }
 .alert p {
-  margin-bottom: 0;
+    margin-bottom: 0;
 }
 .alert:empty {
-  display: none;
+    display: none;
+}
+
+details summary::-webkit-details-marker {
+    display: none;
+}
+
+.link {
+    @apply text-blue-600 hover:text-blue-800;
+}
+
+.table a[href] {
+    @apply link;
+}
+
+#package-grid > a {
+    @apply bg-gray-100 px-5 py-4 text-center rounded text-gray-700 font-medium hover:bg-gray-200;
 }
