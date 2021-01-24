@@ -44,6 +44,22 @@ details summary::-webkit-details-marker {
     @apply link;
 }
 
+.table thead th {
+    @apply text-left;
+}
+
 #package-grid > a {
     @apply bg-gray-100 px-5 py-4 text-center rounded text-gray-700 font-medium hover:bg-gray-200;
+}
+
+iframe[hidden] {
+    display: none;
+}
+
+footer a[href] {
+    @apply underline;
+}
+
+#grid-nav a[href] {
+    @apply text-gray-700 hover:text-gray-900;
 }

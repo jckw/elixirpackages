@@ -9,6 +9,7 @@
     <header>
       <section id="torch-account-info">
         <div class="torch-container">
+          <a href="/">Homepage</a>
           <a href="/">user@example.com</a>
           <a href="/">Logout</a>
         </div>
