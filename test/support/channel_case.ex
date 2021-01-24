@@ -1,4 +1,4 @@
-defmodule HexPackagesWeb.ChannelCase do
+defmodule ElixirPackagesWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -11,7 +11,7 @@ defmodule HexPackagesWeb.ChannelCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use HexPackagesWeb.ChannelCase, async: true`, although
+  by setting `use ElixirPackagesWeb.ChannelCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -21,18 +21,18 @@ defmodule HexPackagesWeb.ChannelCase do
     quote do
       # Import conveniences for testing with channels
       import Phoenix.ChannelTest
-      import HexPackagesWeb.ChannelCase
+      import ElixirPackagesWeb.ChannelCase
 
       # The default endpoint for testing
-      @endpoint HexPackagesWeb.Endpoint
+      @endpoint ElixirPackagesWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(HexPackages.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ElixirPackages.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(HexPackages.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(ElixirPackages.Repo, {:shared, self()})
     end
 
     :ok

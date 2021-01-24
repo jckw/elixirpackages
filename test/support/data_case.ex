@@ -1,4 +1,4 @@
-defmodule HexPackages.DataCase do
+defmodule ElixirPackages.DataCase do
   @moduledoc """
   This module defines the setup for tests requiring
   access to the application's data layer.
@@ -10,7 +10,7 @@ defmodule HexPackages.DataCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use HexPackages.DataCase, async: true`, although
+  by setting `use ElixirPackages.DataCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -18,20 +18,20 @@ defmodule HexPackages.DataCase do
 
   using do
     quote do
-      alias HexPackages.Repo
+      alias ElixirPackages.Repo
 
       import Ecto
       import Ecto.Changeset
       import Ecto.Query
-      import HexPackages.DataCase
+      import ElixirPackages.DataCase
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(HexPackages.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ElixirPackages.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(HexPackages.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(ElixirPackages.Repo, {:shared, self()})
     end
 
     :ok

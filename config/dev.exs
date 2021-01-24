@@ -1,10 +1,10 @@
 use Mix.Config
 
 # Configure your database
-config :hex_packages, HexPackages.Repo,
+config :elixir_packages, ElixirPackages.Repo,
   username: "postgres",
   password: "postgres",
-  database: "hex_packages_dev",
+  database: "elixir_packages_dev",
   hostname: "localhost",
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
@@ -15,7 +15,7 @@ config :hex_packages, HexPackages.Repo,
 # The watchers configuration can be used to run external
 # watchers to your application. For example, we use it
 # with webpack to recompile .js and .css sources.
-config :hex_packages, HexPackagesWeb.Endpoint,
+config :elixir_packages, ElixirPackagesWeb.Endpoint,
   http: [port: 4000],
   debug_errors: true,
   code_reloader: true,
@@ -55,13 +55,13 @@ config :hex_packages, HexPackagesWeb.Endpoint,
 # different ports.
 
 # Watch static and templates for browser reloading.
-config :hex_packages, HexPackagesWeb.Endpoint,
+config :elixir_packages, ElixirPackagesWeb.Endpoint,
   live_reload: [
     patterns: [
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
-      ~r"lib/hex_packages_web/(live|views)/.*(ex)$",
-      ~r"lib/hex_packages_web/templates/.*(eex)$"
+      ~r"lib/elixir_packages_web/(live|views)/.*(ex)$",
+      ~r"lib/elixir_packages_web/templates/.*(eex)$"
     ]
   ]
 

@@ -1,5 +1,5 @@
-defmodule HexPackagesWeb.PageControllerTest do
-  use HexPackagesWeb.ConnCase
+defmodule ElixirPackagesWeb.PageControllerTest do
+  use ElixirPackagesWeb.ConnCase
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")

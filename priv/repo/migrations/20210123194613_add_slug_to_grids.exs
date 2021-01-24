@@ -1,4 +1,4 @@
-defmodule HexPackages.Repo.Migrations.AddSlugToGrids do
+defmodule ElixirPackages.Repo.Migrations.AddSlugToGrids do
   use Ecto.Migration
 
   def change do

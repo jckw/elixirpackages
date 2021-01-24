@@ -1,10 +1,10 @@
-defmodule HexPackages.PackageGridsTest do
-  use HexPackages.DataCase
+defmodule ElixirPackages.PackageGridsTest do
+  use ElixirPackages.DataCase
 
-  alias HexPackages.PackageGrids
+  alias ElixirPackages.PackageGrids
 
   describe "grids" do
-    alias HexPackages.PackageGrids.Grid
+    alias ElixirPackages.PackageGrids.Grid
 
     @valid_attrs %{description: "some description", name: "some name"}
     @update_attrs %{description: "some updated description", name: "some updated name"}
@@ -83,7 +83,7 @@ defmodule HexPackages.PackageGridsTest do
   end
 
   describe "package" do
-    alias HexPackages.PackageGrids.Package
+    alias ElixirPackages.PackageGrids.Package
 
     @valid_attrs %{name: "some name"}
     @update_attrs %{name: "some updated name"}
@@ -160,7 +160,7 @@ defmodule HexPackages.PackageGridsTest do
   end
 
   describe "packages" do
-    alias HexPackages.PackageGrids.Package
+    alias ElixirPackages.PackageGrids.Package
 
     @valid_attrs %{name: "some name"}
     @update_attrs %{name: "some updated name"}
@@ -237,7 +237,7 @@ defmodule HexPackages.PackageGridsTest do
   end
 
   describe "package_in_grid" do
-    alias HexPackages.PackageGrids.PackageInGrid
+    alias ElixirPackages.PackageGrids.PackageInGrid
 
     @valid_attrs %{}
     @update_attrs %{}
@@ -257,7 +257,8 @@ defmodule HexPackages.PackageGridsTest do
         package_in_grid_fixture()
       end
 
-      {:ok, %{package_in_grid: package_in_grid} = page} = PackageGrids.paginate_package_in_grid(%{})
+      {:ok, %{package_in_grid: package_in_grid} = page} =
+        PackageGrids.paginate_package_in_grid(%{})
 
       assert length(package_in_grid) == 15
       assert page.page_number == 1
@@ -280,7 +281,8 @@ defmodule HexPackages.PackageGridsTest do
     end
 
     test "create_package_in_grid/1 with valid data creates a package_in_grid" do
-      assert {:ok, %PackageInGrid{} = package_in_grid} = PackageGrids.create_package_in_grid(@valid_attrs)
+      assert {:ok, %PackageInGrid{} = package_in_grid} =
+               PackageGrids.create_package_in_grid(@valid_attrs)
     end
 
     test "create_package_in_grid/1 with invalid data returns error changeset" do
@@ -289,20 +291,29 @@ defmodule HexPackages.PackageGridsTest do
 
     test "update_package_in_grid/2 with valid data updates the package_in_grid" do
       package_in_grid = package_in_grid_fixture()
-      assert {:ok, package_in_grid} = PackageGrids.update_package_in_grid(package_in_grid, @update_attrs)
+
+      assert {:ok, package_in_grid} =
+               PackageGrids.update_package_in_grid(package_in_grid, @update_attrs)
+
       assert %PackageInGrid{} = package_in_grid
     end
 
     test "update_package_in_grid/2 with invalid data returns error changeset" do
       package_in_grid = package_in_grid_fixture()
-      assert {:error, %Ecto.Changeset{}} = PackageGrids.update_package_in_grid(package_in_grid, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               PackageGrids.update_package_in_grid(package_in_grid, @invalid_attrs)
+
       assert package_in_grid == PackageGrids.get_package_in_grid!(package_in_grid.id)
     end
 
     test "delete_package_in_grid/1 deletes the package_in_grid" do
       package_in_grid = package_in_grid_fixture()
       assert {:ok, %PackageInGrid{}} = PackageGrids.delete_package_in_grid(package_in_grid)
-      assert_raise Ecto.NoResultsError, fn -> PackageGrids.get_package_in_grid!(package_in_grid.id) end
+
+      assert_raise Ecto.NoResultsError, fn ->
+        PackageGrids.get_package_in_grid!(package_in_grid.id)
+      end
     end
 
     test "change_package_in_grid/1 returns a package_in_grid changeset" do

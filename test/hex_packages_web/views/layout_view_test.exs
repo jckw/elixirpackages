@@ -1,5 +1,5 @@
-defmodule HexPackagesWeb.LayoutViewTest do
-  use HexPackagesWeb.ConnCase, async: true
+defmodule ElixirPackagesWeb.LayoutViewTest do
+  use ElixirPackagesWeb.ConnCase, async: true
 
   # When testing helpers, you may want to import Phoenix.HTML and
   # use functions such as safe_to_string() to convert the helper

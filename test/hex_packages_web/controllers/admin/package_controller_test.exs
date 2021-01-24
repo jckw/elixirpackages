@@ -1,7 +1,7 @@
-defmodule HexPackagesWeb.Admin.PackageControllerTest do
-  use HexPackagesWeb.ConnCase
+defmodule ElixirPackagesWeb.Admin.PackageControllerTest do
+  use ElixirPackagesWeb.ConnCase
 
-  alias HexPackages.PackageGrids
+  alias ElixirPackages.PackageGrids
 
   @create_attrs %{name: "some name"}
   @update_attrs %{name: "some updated name"}
@@ -14,14 +14,14 @@ defmodule HexPackagesWeb.Admin.PackageControllerTest do
 
   describe "index" do
     test "lists all packages", %{conn: conn} do
-      conn = get conn, Routes.admin_package_path(conn, :index)
+      conn = get(conn, Routes.admin_package_path(conn, :index))
       assert html_response(conn, 200) =~ "Packages"
     end
   end
 
   describe "new package" do
     test "renders form", %{conn: conn} do
-      conn = get conn, Routes.admin_package_path(conn, :new)
+      conn = get(conn, Routes.admin_package_path(conn, :new))
       assert html_response(conn, 200) =~ "New Package"
     end
   end
@@ -33,7 +33,7 @@ defmodule HexPackagesWeb.Admin.PackageControllerTest do
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.admin_package_path(conn, :show, id)
 
-      conn = get conn, Routes.admin_package_path(conn, :show, id)
+      conn = get(conn, Routes.admin_package_path(conn, :show, id))
       assert html_response(conn, 200) =~ "Package Details"
     end
 
@@ -47,7 +47,7 @@ defmodule HexPackagesWeb.Admin.PackageControllerTest do
     setup [:create_package]
 
     test "renders form for editing chosen package", %{conn: conn, package: package} do
-      conn = get conn, Routes.admin_package_path(conn, :edit, package)
+      conn = get(conn, Routes.admin_package_path(conn, :edit, package))
       assert html_response(conn, 200) =~ "Edit Package"
     end
   end
@@ -59,7 +59,7 @@ defmodule HexPackagesWeb.Admin.PackageControllerTest do
       conn = put conn, Routes.admin_package_path(conn, :update, package), package: @update_attrs
       assert redirected_to(conn) == Routes.admin_package_path(conn, :show, package)
 
-      conn = get conn, Routes.admin_package_path(conn, :show, package)
+      conn = get(conn, Routes.admin_package_path(conn, :show, package))
       assert html_response(conn, 200) =~ "some updated name"
     end
 
@@ -73,10 +73,11 @@ defmodule HexPackagesWeb.Admin.PackageControllerTest do
     setup [:create_package]
 
     test "deletes chosen package", %{conn: conn, package: package} do
-      conn = delete conn, Routes.admin_package_path(conn, :delete, package)
+      conn = delete(conn, Routes.admin_package_path(conn, :delete, package))
       assert redirected_to(conn) == Routes.admin_package_path(conn, :index)
+
       assert_error_sent 404, fn ->
-        get conn, Routes.admin_package_path(conn, :show, package)
+        get(conn, Routes.admin_package_path(conn, :show, package))
       end
     end
   end

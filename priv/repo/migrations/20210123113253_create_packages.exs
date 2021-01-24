@@ -1,4 +1,4 @@
-defmodule HexPackages.Repo.Migrations.CreatePackages do
+defmodule ElixirPackages.Repo.Migrations.CreatePackages do
   use Ecto.Migration
 
   def change do

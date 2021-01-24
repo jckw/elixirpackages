@@ -1,4 +1,4 @@
-# HexPackages
+# ElixirPackages
 
 To start your Phoenix server:
 

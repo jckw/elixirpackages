@@ -1,3 +1,3 @@
-defmodule HexPackagesWeb.PageViewTest do
-  use HexPackagesWeb.ConnCase, async: true
+defmodule ElixirPackagesWeb.PageViewTest do
+  use ElixirPackagesWeb.ConnCase, async: true
 end

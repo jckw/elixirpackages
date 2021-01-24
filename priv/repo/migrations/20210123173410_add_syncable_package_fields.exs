@@ -1,4 +1,4 @@
-defmodule HexPackages.Repo.Migrations.AddSyncablePackageFields do
+defmodule ElixirPackages.Repo.Migrations.AddSyncablePackageFields do
   use Ecto.Migration
 
   def change do

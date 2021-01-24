@@ -1,7 +1,7 @@
-defmodule HexPackagesWeb.Admin.GridControllerTest do
-  use HexPackagesWeb.ConnCase
+defmodule ElixirPackagesWeb.Admin.GridControllerTest do
+  use ElixirPackagesWeb.ConnCase
 
-  alias HexPackages.PackageGrids
+  alias ElixirPackages.PackageGrids
 
   @create_attrs %{description: "some description", name: "some name"}
   @update_attrs %{description: "some updated description", name: "some updated name"}
@@ -14,14 +14,14 @@ defmodule HexPackagesWeb.Admin.GridControllerTest do
 
   describe "index" do
     test "lists all grids", %{conn: conn} do
-      conn = get conn, Routes.admin_grid_path(conn, :index)
+      conn = get(conn, Routes.admin_grid_path(conn, :index))
       assert html_response(conn, 200) =~ "Grids"
     end
   end
 
   describe "new grid" do
     test "renders form", %{conn: conn} do
-      conn = get conn, Routes.admin_grid_path(conn, :new)
+      conn = get(conn, Routes.admin_grid_path(conn, :new))
       assert html_response(conn, 200) =~ "New Grid"
     end
   end
@@ -33,7 +33,7 @@ defmodule HexPackagesWeb.Admin.GridControllerTest do
       assert %{id: id} = redirected_params(conn)
       assert redirected_to(conn) == Routes.admin_grid_path(conn, :show, id)
 
-      conn = get conn, Routes.admin_grid_path(conn, :show, id)
+      conn = get(conn, Routes.admin_grid_path(conn, :show, id))
       assert html_response(conn, 200) =~ "Grid Details"
     end
 
@@ -47,7 +47,7 @@ defmodule HexPackagesWeb.Admin.GridControllerTest do
     setup [:create_grid]
 
     test "renders form for editing chosen grid", %{conn: conn, grid: grid} do
-      conn = get conn, Routes.admin_grid_path(conn, :edit, grid)
+      conn = get(conn, Routes.admin_grid_path(conn, :edit, grid))
       assert html_response(conn, 200) =~ "Edit Grid"
     end
   end
@@ -59,7 +59,7 @@ defmodule HexPackagesWeb.Admin.GridControllerTest do
       conn = put conn, Routes.admin_grid_path(conn, :update, grid), grid: @update_attrs
       assert redirected_to(conn) == Routes.admin_grid_path(conn, :show, grid)
 
-      conn = get conn, Routes.admin_grid_path(conn, :show, grid)
+      conn = get(conn, Routes.admin_grid_path(conn, :show, grid))
       assert html_response(conn, 200) =~ "some updated description"
     end
 
@@ -73,10 +73,11 @@ defmodule HexPackagesWeb.Admin.GridControllerTest do
     setup [:create_grid]
 
     test "deletes chosen grid", %{conn: conn, grid: grid} do
-      conn = delete conn, Routes.admin_grid_path(conn, :delete, grid)
+      conn = delete(conn, Routes.admin_grid_path(conn, :delete, grid))
       assert redirected_to(conn) == Routes.admin_grid_path(conn, :index)
+
       assert_error_sent 404, fn ->
-        get conn, Routes.admin_grid_path(conn, :show, grid)
+        get(conn, Routes.admin_grid_path(conn, :show, grid))
       end
     end
   end

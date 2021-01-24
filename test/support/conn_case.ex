@@ -1,4 +1,4 @@
-defmodule HexPackagesWeb.ConnCase do
+defmodule ElixirPackagesWeb.ConnCase do
   @moduledoc """
   This module defines the test case to be used by
   tests that require setting up a connection.
@@ -11,7 +11,7 @@ defmodule HexPackagesWeb.ConnCase do
   we enable the SQL sandbox, so changes done to the database
   are reverted at the end of every test. If you are using
   PostgreSQL, you can even run database tests asynchronously
-  by setting `use HexPackagesWeb.ConnCase, async: true`, although
+  by setting `use ElixirPackagesWeb.ConnCase, async: true`, although
   this option is not recommended for other databases.
   """
 
@@ -22,20 +22,20 @@ defmodule HexPackagesWeb.ConnCase do
       # Import conveniences for testing with connections
       import Plug.Conn
       import Phoenix.ConnTest
-      import HexPackagesWeb.ConnCase
+      import ElixirPackagesWeb.ConnCase
 
-      alias HexPackagesWeb.Router.Helpers, as: Routes
+      alias ElixirPackagesWeb.Router.Helpers, as: Routes
 
       # The default endpoint for testing
-      @endpoint HexPackagesWeb.Endpoint
+      @endpoint ElixirPackagesWeb.Endpoint
     end
   end
 
   setup tags do
-    :ok = Ecto.Adapters.SQL.Sandbox.checkout(HexPackages.Repo)
+    :ok = Ecto.Adapters.SQL.Sandbox.checkout(ElixirPackages.Repo)
 
     unless tags[:async] do
-      Ecto.Adapters.SQL.Sandbox.mode(HexPackages.Repo, {:shared, self()})
+      Ecto.Adapters.SQL.Sandbox.mode(ElixirPackages.Repo, {:shared, self()})
     end
 
     {:ok, conn: Phoenix.ConnTest.build_conn()}
