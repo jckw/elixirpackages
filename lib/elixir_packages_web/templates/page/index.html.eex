@@ -13,21 +13,4 @@
   <%= for grid <- ElixirPackages.PackageGrids.list_grids_alphabetically() do %>
     <%= link grid.name, to: Routes.grid_path(@conn, :show, grid) %>
   <% end %>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
-  <a href="#">Test</a>
 </div>

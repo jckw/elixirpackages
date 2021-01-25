@@ -22,6 +22,10 @@ defmodule ElixirPackagesWeb.Router do
     plug :put_secure_browser_headers
   end
 
+  pipeline :admin do
+    plug ElixirPackagesWeb.EnsureRolePlug, :admin
+  end
+
   scope "/" do
     pipe_through :skip_csrf_protection
 
@@ -32,7 +36,7 @@ defmodule ElixirPackagesWeb.Router do
     pipe_through :browser
 
     pow_session_routes()
-    pow_assent_authorization_routes()
+    pow_assent_routes()
   end
 
   scope "/", ElixirPackagesWeb do
@@ -43,7 +47,7 @@ defmodule ElixirPackagesWeb.Router do
   end
 
   scope "/admin", ElixirPackagesWeb.Admin, as: :admin do
-    pipe_through :browser
+    pipe_through [:browser, :admin]
 
     resources "/packages", PackageController
 

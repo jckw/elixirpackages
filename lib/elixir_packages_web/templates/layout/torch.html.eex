@@ -10,8 +10,8 @@
       <section id="torch-account-info">
         <div class="torch-container">
           <a href="/">Homepage</a>
-          <a href="/">user@example.com</a>
-          <a href="/">Logout</a>
+          <a><%= Pow.Plug.current_user(@conn).email %></a>
+          <%= link "Log out", to: Routes.pow_session_path(@conn, :delete), method: :delete %>
         </div>
       </section>
       <section id="torch-nav">

@@ -1,102 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>ElixirPackages · Phoenix Framework</title>
-        <link
-            rel="stylesheet"
-            href='<%= Routes.static_path(@conn, "/css/app.css") %>'
-        />
-        <script
-            defer
-            type="text/javascript"
-            src='<%= Routes.static_path(@conn, "/js/app.js") %>'
-        ></script>
-    <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
-    </head>
-    <body>
-        <header class="py-2 bg-purple-800 text-white">
-            <div
-                class="container mx-auto px-6 h-16 flex justify-between items-center"
-            >
-                <a href="/" class="font-extrabold text-lg">Elixir Packages</a>
-                <nav role="navigation">
-                    <ul class="flex space-x-5">
-                        <%= if Pow.Plug.current_user(@conn) do %>
-                            <li><%= Pow.Plug.current_user(@conn).email %></li>
-                            <li><%= link "Log out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></li>
-                        <% else %>
-                            <li><%= link "Log in", to: Routes.pow_assent_authorization_path(@conn, :new, :github) %></li>
-                        <% end %>
-                        <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
-                        <li>
-                            <%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %>
-                        </li>
-                        <% end %>
-                        <li>
-                            <%= link "Admin", to: Routes.admin_grid_path(@conn, :index) %>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </header>
-
-        <div class="bg-purple-200" x-data="{ open: false }">
-            <button type="button" role="button" class="list-none container mx-auto px-6 py-2 uppercase font-semibold text-purple-800 flex items-center space-x-3" @click="open = !open">
-                <span>Grids</span>
-
-        <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="fill-current transform" :class="{ 'rotate-180': open }">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M5.29279 7.29301C5.48031 7.10553 5.73462 7.00022 5.99979 7.00022C6.26495 7.00022 6.51926 7.10553 6.70679 7.29301L9.99979 10.586L13.2928 7.29301C13.385 7.19749 13.4954 7.12131 13.6174 7.0689C13.7394 7.01649 13.8706 6.98891 14.0034 6.98775C14.1362 6.9866 14.2678 7.0119 14.3907 7.06218C14.5136 7.11246 14.6253 7.18672 14.7192 7.28061C14.8131 7.3745 14.8873 7.48615 14.9376 7.60905C14.9879 7.73195 15.0132 7.86363 15.012 7.99641C15.0109 8.12919 14.9833 8.26041 14.9309 8.38241C14.8785 8.50441 14.8023 8.61476 14.7068 8.707L10.7068 12.707C10.5193 12.8945 10.265 12.9998 9.99979 12.9998C9.73462 12.9998 9.48031 12.8945 9.29279 12.707L5.29279 8.707C5.10532 8.51948 5 8.26517 5 8C5 7.73484 5.10532 7.48053 5.29279 7.29301Z" />
-        </svg>
-            </button>
-
-            <nav class="py-3 bg-purple-100 font-medium" x-show="open" @click.away="open = false" style="display: none" id="grid-nav">
-                <div class="container mx-auto px-6">
-                    <ul class="grid gap-x-6 gap-y-2" style="grid-template-columns: repeat(auto-fill, minmax(130px, 1fr))">
-                        <%= for grid <- ElixirPackages.PackageGrids.list_grids_alphabetically() do %>
-                            <li>
-                                <%= link grid.name, to: Routes.grid_path(@conn, :show, grid) %>
-                            </li>
-                        <% end %>
-            <li><a href="#">Authorization</a></li>
-            <li><a href="#">Admin</a></li>
-            <li><a href="#">Analytics</a></li>
-            <li><a href="#">Anti-spam</a></li>
-            <li><a href="#">API creation</a></li>
-            <li><a href="#">Asset managers</a></li>
-            <li><a href="#">Blogs</a></li>
-            <li><a href="#">Caching</a></li>
-            <li><a href="#">Authorization</a></li>
-            <li><a href="#">Countries</a></li>
-            <li><a href="#">Chat</a></li>
-            <li><a href="#">CMS</a></li>
-            <li><a href="#">Shop</a></li>
-                    </ul>
-                </div>
-            </nav>
+   <head>
+      <meta charset="utf-8" />
+      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <title>ElixirPackages · Phoenix Framework</title>
+      <link
+        rel="stylesheet"
+        href='<%= Routes.static_path(@conn, "/css/app.css") %>'
+      />
+      <script
+        defer
+        type="text/javascript"
+        src='<%= Routes.static_path(@conn, "/js/app.js") %>'
+      ></script>
+   <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.x.x/dist/alpine.min.js" defer></script>
+   </head>
+   <body>
+      <header class="py-2 bg-purple-800 text-white">
+        <div
+           class="container mx-auto px-6 h-16 flex justify-between items-center"
+        >
+           <a href="/" class="font-extrabold text-lg">Elixir Packages</a>
+           <nav role="navigation">
+              <ul class="flex space-x-5">
+                <%= if Pow.Plug.current_user(@conn) do %>
+                   <li><%= Pow.Plug.current_user(@conn).email %></li>
+                   <li><%= link "Log out", to: Routes.pow_session_path(@conn, :delete), method: :delete %></li>
+                <% else %>
+                   <li><%= link "Log in", to: Routes.pow_assent_authorization_path(@conn, :new, :github) %></li>
+                <% end %>
+                <%= if function_exported?(Routes, :live_dashboard_path, 2) do %>
+                <li>
+                   <%= link "LiveDashboard", to: Routes.live_dashboard_path(@conn, :home) %>
+                </li>
+                <% end %>
+                <%= if ElixirPackages.Users.is_admin?(@current_user) do %>
+                   <li>
+                      <%= link "Admin", to: Routes.admin_grid_path(@conn, :index) %>
+                   </li>
+                <% end %>
+              </ul>
+           </nav>
         </div>
+      </header>
 
-        <main role="main" class="container mx-auto px-6 pt-4 pb-16">
-            <%= if get_flash(@conn, :info) do %>
-                <p class="alert alert-info" role="alert">
-                    <%= get_flash(@conn, :info) %>
-                </p>
-            <% end %>
-            <%= if get_flash(@conn, :error) do %>
-                <p class="alert alert-danger" role="alert">
-                    <%= get_flash(@conn, :error) %>
-                </p>
-            <% end %>
-            <%= @inner_content %>
-        </main>
-    <footer class="bg-gray-100">
-      <div class="container mx-auto px-6 py-3 text-center text-gray-600 text-xs">
-        <p>Made by Jack Weatherilt.</p>
-        <p>Uses data from <a href="https://hex.pm/">hex.pm</a>.</p>
-        <p>Heavily inspired by <a href="https://djangopackages.org/">djangopackages.org</a>.</p>
+      <div class="bg-purple-200" x-data="{ open: false }">
+        <button type="button" role="button" class="list-none container mx-auto px-6 py-2 uppercase font-semibold text-purple-800 flex items-center space-x-3" @click="open = !open">
+           <span>Grids</span>
+
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" class="fill-current transform" :class="{ 'rotate-180': open }">
+       <path fill-rule="evenodd" clip-rule="evenodd" d="M5.29279 7.29301C5.48031 7.10553 5.73462 7.00022 5.99979 7.00022C6.26495 7.00022 6.51926 7.10553 6.70679 7.29301L9.99979 10.586L13.2928 7.29301C13.385 7.19749 13.4954 7.12131 13.6174 7.0689C13.7394 7.01649 13.8706 6.98891 14.0034 6.98775C14.1362 6.9866 14.2678 7.0119 14.3907 7.06218C14.5136 7.11246 14.6253 7.18672 14.7192 7.28061C14.8131 7.3745 14.8873 7.48615 14.9376 7.60905C14.9879 7.73195 15.0132 7.86363 15.012 7.99641C15.0109 8.12919 14.9833 8.26041 14.9309 8.38241C14.8785 8.50441 14.8023 8.61476 14.7068 8.707L10.7068 12.707C10.5193 12.8945 10.265 12.9998 9.99979 12.9998C9.73462 12.9998 9.48031 12.8945 9.29279 12.707L5.29279 8.707C5.10532 8.51948 5 8.26517 5 8C5 7.73484 5.10532 7.48053 5.29279 7.29301Z" />
+      </svg>
+        </button>
+
+        <nav class="py-3 bg-purple-100 font-medium" x-show="open" @click.away="open = false" style="display: none" id="grid-nav">
+           <div class="container mx-auto px-6">
+              <ul class="grid gap-x-6 gap-y-2" style="grid-template-columns: repeat(auto-fill, minmax(130px, 1fr))">
+                <%= for grid <- ElixirPackages.PackageGrids.list_grids_alphabetically() do %>
+                   <li>
+                      <%= link grid.name, to: Routes.grid_path(@conn, :show, grid) %>
+                   </li>
+                <% end %>
+              </ul>
+           </div>
+        </nav>
       </div>
-    </footer>
-    </body>
+
+      <main role="main" class="container mx-auto px-6 pt-4 pb-16">
+        <%= if get_flash(@conn, :info) do %>
+           <p class="alert alert-info" role="alert">
+              <%= get_flash(@conn, :info) %>
+           </p>
+        <% end %>
+        <%= if get_flash(@conn, :error) do %>
+           <p class="alert alert-danger" role="alert">
+              <%= get_flash(@conn, :error) %>
+           </p>
+        <% end %>
+        <%= @inner_content %>
+      </main>
+   <footer class="bg-gray-100">
+    <div class="container mx-auto px-6 py-3 text-center text-gray-600 text-xs">
+      <p>Made by Jack Weatherilt.</p>
+      <p>Uses data from <a href="https://hex.pm/">hex.pm</a>.</p>
+      <p>Heavily inspired by <a href="https://djangopackages.org/">djangopackages.org</a>.</p>
+    </div>
+   </footer>
+   </body>
 </html>
