@@ -65,7 +65,7 @@
       </svg>
         </button>
 
-        <nav class="py-3 bg-gray-50 font-medium" x-show="open" @click.away="open = false" style="display: none" id="grid-nav">
+        <nav class="pt-3 pb-4 bg-gray-50 font-medium" x-show="open" @click.away="open = false" style="display: none" id="grid-nav">
            <div class="container mx-auto px-6">
               <ul class="grid gap-x-6 gap-y-2" style="grid-template-columns: repeat(auto-fill, minmax(130px, 1fr))">
                 <%= for grid <- ElixirPackages.PackageGrids.list_grids_alphabetically() do %>

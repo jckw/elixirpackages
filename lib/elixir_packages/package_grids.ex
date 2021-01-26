@@ -82,7 +82,7 @@ defmodule ElixirPackages.PackageGrids do
   """
   def list_grids_alphabetically do
     Grid
-    |> order_by(desc: :name)
+    |> order_by(asc: :name)
     |> Repo.all()
   end
 
