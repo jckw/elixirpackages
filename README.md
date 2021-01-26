@@ -18,3 +18,15 @@ Ready to run in production? Please [check our deployment guides](https://hexdocs
   * Docs: https://hexdocs.pm/phoenix
   * Forum: https://elixirforum.com/c/phoenix-forum
   * Source: https://github.com/phoenixframework/phoenix
+
+## Development
+
+This is a standard Phoenix app, so you can use all the usual mix commands.
+
+You will have to set up your secrets in `config/dev.secret.exs`.
+
+It may be useful to ignore local file changes for `dev.secret.exs`, as to avoid committing your secrets. This can be done with the command:
+
+```
+git update-index --assume-unchanged config/dev.secret.exs
+```
