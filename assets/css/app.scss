@@ -63,3 +63,11 @@ footer a[href] {
 #grid-nav a[href] {
     @apply text-gray-700 hover:text-gray-900;
 }
+
+#navbar-nav li {
+    @apply text-gray-500;
+}
+
+#navbar-nav li a[href] {
+    @apply hover:text-gray-700;
+}
