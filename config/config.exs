@@ -35,6 +35,10 @@ config :elixir_packages, :pow,
   repo: ElixirPackages.Repo,
   routes_backend: ElixirPackagesWeb.Pow.Routes
 
+github_access_token =
+  config :elixir_packages,
+    github_access_token: System.get_env("GITHUB_ACCESS_TOKEN")
+
 config :elixir_packages, :pow_assent,
   providers: [
     github: [
