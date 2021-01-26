@@ -14,9 +14,10 @@ defmodule ElixirPackages.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: ElixirPackages.PubSub},
       # Start the Endpoint (http/https)
-      ElixirPackagesWeb.Endpoint
+      ElixirPackagesWeb.Endpoint,
       # Start a worker by calling: ElixirPackages.Worker.start_link(arg)
       # {ElixirPackages.Worker, arg}
+      ElixirPackages.PackageGrids.SyncPackageData
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

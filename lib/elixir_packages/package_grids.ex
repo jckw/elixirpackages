@@ -8,7 +8,7 @@ defmodule ElixirPackages.PackageGrids do
   import Torch.Helpers, only: [sort: 1, paginate: 4]
   import Filtrex.Type.Config
 
-  alias ElixirPackages.PackageGrids.Grid
+  alias ElixirPackages.PackageGrids.{Grid, Package, PackageInGrid, SyncPackageData}
 
   @pagination [page_size: 15]
   @pagination_distance 5
@@ -176,13 +176,11 @@ defmodule ElixirPackages.PackageGrids do
     end
   end
 
-  import Torch.Helpers, only: [sort: 1, paginate: 4]
-  import Filtrex.Type.Config
-
-  alias ElixirPackages.PackageGrids.Package
-
-  @pagination [page_size: 15]
-  @pagination_distance 5
+  defp filter_config(:packages) do
+    defconfig do
+      text(:name)
+    end
+  end
 
   @doc """
   Paginate the list of packages using filtrex
@@ -277,7 +275,7 @@ defmodule ElixirPackages.PackageGrids do
     |> Repo.insert()
     |> case do
       {:ok, package} ->
-        Task.start(fn -> sync_package_data(package) end)
+        Task.start(fn -> SyncPackageData.sync_package_data(package) end)
         {:ok, package}
 
       x ->
@@ -331,75 +329,6 @@ defmodule ElixirPackages.PackageGrids do
   def change_package(%Package{} = package, attrs \\ %{}) do
     Package.changeset(package, attrs)
   end
-
-  defp filter_config(:packages) do
-    defconfig do
-      text(:name)
-    end
-  end
-
-  def get_json!(url) do
-    HTTPoison.get!(url)
-    |> Map.get(:body)
-    |> Jason.decode!()
-  end
-
-  def build_package_data(name) do
-    %{
-      "html_url" => hex_url,
-      "latest_stable_version" => latest_stable_version,
-      "latest_version" => latest_version,
-      "meta" => %{
-        "description" => description,
-        "links" => links
-      },
-      "releases" => [%{"inserted_at" => last_released} | _]
-    } = get_json!("https://hex.pm/api/packages/" <> name)
-
-    Map.merge(
-      %{
-        name: name,
-        hex_url: hex_url,
-        latest_stable_version: latest_stable_version,
-        latest_version: latest_version,
-        description: description,
-        last_released: last_released
-      },
-      get_repo_data_from_links(links)
-    )
-  end
-
-  def fetch_github_data(github_url) do
-    "https://github.com/" <> repo = github_url
-
-    %{
-      "stargazers_count" => stars_count,
-      "forks_count" => forks_count,
-      "open_issues" => issues_count
-    } = get_json!("https://api.github.com/repos/" <> repo)
-
-    %{
-      stars_count: stars_count,
-      forks_count: forks_count,
-      issues_count: issues_count,
-      repo_provider: "GitHub",
-      repo_url: github_url
-    }
-  end
-
-  def get_repo_data_from_links(%{"github" => url}), do: fetch_github_data(url)
-  def get_repo_data_from_links(%{"GitHub" => url}), do: fetch_github_data(url)
-  def get_repo_data_from_links(%{"Github" => url}), do: fetch_github_data(url)
-  def get_repo_data_from_links(_), do: %{}
-
-  def sync_package_data(package) do
-    update_package(package, build_package_data(package.name))
-  end
-
-  import Torch.Helpers, only: [sort: 1, paginate: 4]
-  import Filtrex.Type.Config
-
-  alias ElixirPackages.PackageGrids.PackageInGrid
 
   @doc """
   Creates a package_in_grid.
