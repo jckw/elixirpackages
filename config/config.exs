@@ -33,7 +33,7 @@ config :torch,
 config :elixir_packages, :pow,
   user: ElixirPackages.Users.User,
   repo: ElixirPackages.Repo,
-  routes_backend: ElixirPackagesWeb.Pow.Routes
+  routes_backend: ElixirPackagesWeb.PowRoutes
 
 github_access_token =
   config :elixir_packages,

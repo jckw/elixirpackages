@@ -51,7 +51,8 @@ defmodule ElixirPackages.MixProject do
       {:pow_assent, "~> 0.4.10"},
       {:certifi, "~> 2.4"},
       {:ssl_verify_fun, "~> 1.1"},
-      {:tentacat, "~> 2.0"}
+      {:tentacat, "~> 2.0"},
+      {:mock, "~> 0.3.0", only: :test}
     ]
   end
 

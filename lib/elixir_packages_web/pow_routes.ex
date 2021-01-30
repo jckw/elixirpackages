@@ -1,4 +1,4 @@
-defmodule ElixirPackagesWeb.Pow.Routes do
+defmodule ElixirPackagesWeb.PowRoutes do
   use Pow.Phoenix.Routes
   alias ElixirPackagesWeb.Router.Helpers, as: Routes
 

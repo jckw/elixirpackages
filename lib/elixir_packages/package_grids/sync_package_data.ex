@@ -5,7 +5,7 @@ defmodule ElixirPackages.PackageGrids.SyncPackageData do
 
   @github_access_token Application.get_env(:elixir_packages, :github_access_token)
 
-  def start_link(_) do
+  def start_link(_opts) do
     GenServer.start_link(__MODULE__, %{})
   end
 
@@ -26,7 +26,7 @@ defmodule ElixirPackages.PackageGrids.SyncPackageData do
     {:noreply, state}
   end
 
-  defp schedule_work() do
+  def schedule_work() do
     # every 6 hours
     Process.send_after(self(), :work, 6 * 60 * 60 * 1000)
   end
