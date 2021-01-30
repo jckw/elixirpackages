@@ -45,7 +45,9 @@ config :logger, level: :info
 # We also recommend setting `force_ssl` in your endpoint, ensuring
 # no data is ever sent via http, always redirecting to https:
 #
-config :elixir_packages, ElixirPackagesWeb.Endpoint, force_ssl: [rewrite_on: [:x_forwarded_proto]]
+config :elixir_packages, ElixirPackagesWeb.Endpoint,
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
+  scheme: "https"
 
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.
