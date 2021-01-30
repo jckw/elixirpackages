@@ -10,7 +10,8 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :elixir_packages, ElixirPackagesWeb.Endpoint,
-  url: [host: System.get_env("HOST"), port: 80],
+  url: [host: System.get_env("HOST"), port: 443, scheme: "https"],
+  force_ssl: [rewrite_on: [:x_forwarded_proto]],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
@@ -45,9 +46,6 @@ config :logger, level: :info
 # We also recommend setting `force_ssl` in your endpoint, ensuring
 # no data is ever sent via http, always redirecting to https:
 #
-config :elixir_packages, ElixirPackagesWeb.Endpoint,
-  force_ssl: [rewrite_on: [:x_forwarded_proto]],
-  scheme: "https"
 
 # Finally import the config/prod.secret.exs which loads secrets
 # and configuration from environment variables.
