@@ -10,8 +10,13 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :elixir_packages, ElixirPackagesWeb.Endpoint,
-  url: [host: System.get_env("HOST"), port: 80],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  url: [host: System.get_env("HOST"), port: 443],
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  https: [
+    port: 443,
+    cipher_suite: :strong,
+    transport_options: [socket_opts: [:inet6]]
+  ]
 
 # Do not print debug messages in production
 config :logger, level: :info
